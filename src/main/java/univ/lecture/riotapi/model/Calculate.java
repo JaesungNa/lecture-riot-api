@@ -10,7 +10,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Summoner {
-    private String name;
-    private int summonerLevel;
+//public class Summoner {
+//    private String name;
+//    private int summonerLevel;
+//}
+public class Calculate {
+    private String teamId;
+    private int now;
+    private double result;
+    private String msg;
 }
