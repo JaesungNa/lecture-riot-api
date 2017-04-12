@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Map;
 
 import java.util.StringTokenizer;
+
+import javax.print.attribute.HashAttributeSet;
+
 import java.util.Stack;
 
 
@@ -42,21 +46,24 @@ public class RiotApiController {
 	
 	public String queryCalculate(@RequestBody String expression) throws UnsupportedEncodingException {
 		final String url = riotApiEndpoint;
-		String inTime   = new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
-		int timeInInteger = Integer.parseInt(inTime);
+//		String inTime   = new java.text.SimpleDateFormat("HHmmss").format(new java.util.Date());
+//		int timeInInteger = Integer.parseInt(inTime);
 		Calculator calc = new Calculator();
 		double result = calc.calculate(expression);
 		
-		String parsingString = "{\""+expression+"\":{\"teamId\":\"team1\",\"now\":"+timeInInteger+",\"result\":"+result+"}}";
+//		String parsingString = "{\""+expression+"\":{\"teamId\":\"team1\",\"now\":"+timeInInteger+",\"result\":"+result+"}}";
 		/*
 		 *************** 	test code for developer	***************
 		 * 
 		 *	String responsePost = "{\"Responded\":"+restTemplate.postForObject(url, parsingString, String.class)+"}";
-		 *	Map<String, Object> parsedMap = new JacksonJsonParser().parseMap(parsingString);
+		 *  Map<String, Object> parsedMap = new JacksonJsonParser().parseMap(parsingString);
 		 *
 		 */
-		
-		String responsePost = restTemplate.postForObject(url, parsingString, String.class);
+		Map<String, Object> parsedMap = new HashMap<String, Object>();
+		parsedMap.put("teamId", 1);
+		parsedMap.put("now", System.currentTimeMillis());
+		parsedMap.put("result", result);
+		String responsePost = restTemplate.postForObject(url, parsedMap, String.class);
 		
 		/*
 		 *************** 	test code for developer   ***************
@@ -73,6 +80,8 @@ public class RiotApiController {
 		 *
 		 *	return calculate;
 		 */
+
+		
 		return responsePost;
 	}
 

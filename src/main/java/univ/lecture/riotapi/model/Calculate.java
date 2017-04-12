@@ -18,5 +18,5 @@ public class Calculate {
     private String teamId;
     private int now;
     private double result;
-    private String msg;
+    //private String msg;
 }
